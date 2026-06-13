@@ -4,10 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Svatba</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Novotní ❤️</h1>
+    <div class="hero">
+        <div class="overlay"></div>
+
+        <div class="hero-content">
+            <h1>Jirka & Kristý</h1>
+            <p>26.06.2026</p>
+        </div>
+    </div>
+
+    <audio id="song" src="Hudba/pojdsemnou.mp3"></audio>
+    <button class="music-btn" onclick="toggleMusic()">
+        ▶ Přehrát hudbu
+    </button>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
