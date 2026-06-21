@@ -1,6 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
 
 /* ===== HERO ===== */
@@ -204,7 +209,7 @@ body {
 }
 
 .memory.active {
-    gap: 60px;
+    gap: 30px;
     justify-content: center;
 }
 
@@ -236,11 +241,11 @@ body {
 }
 
 .memory.left.active .memory-photo {
-    transform: translateX(-80px);
+    transform: translateX(clamp(-5px, -0.8vw, -3px));
 }
 
 .memory.right.active .memory-photo {
-    transform: translateX(80px);
+    transform: translateX(clamp(3px, 0.8vw, 5px));
 }
 
 /* ===== TEXT ===== */
@@ -263,6 +268,14 @@ body {
     transform: translateX(0);
     pointer-events: auto;
     padding: 20px;
+}
+
+.memory.left.active .memory-text {
+    transform: translateX(20px);
+}
+
+.memory.right.active .memory-text {
+    transform: translateX(-20px);
 }
 
 .memory-text h4 {
@@ -290,24 +303,27 @@ body {
     }
 
     .memory-photo img {
-        width: 90vw;
-        max-width: 90vw;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .memory.active .memory-photo img {
-        width: 90vw;
+        width: 100%;
+        max-width: 100%;
         /* na mobilu se fotka při kliknutí nezmenšuje */
     }
 
-    .memory.left.active .memory-photo,
+    /*.memory.left.active .memory-photo,
     .memory.right.active .memory-photo {
-        transform: none;
-        /* slide do strany nemá smysl, když je vše pod sebou */
-    }
+        transform: none;*/
+    /* slide do strany nemá smysl, když je vše pod sebou */
+
 
     .memory-text {
-        width: 90vw !important;
-        max-width: 90vw !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
     }
 }
 
