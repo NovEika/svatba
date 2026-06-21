@@ -130,15 +130,15 @@ body {
     font-size: 18px;
     padding: 60px 20px;
     background: linear-gradient(180deg,
-            #E38F8F 0%,
-            #f5ccec 25%,
-            #fffaf0 60%,
+            #6B4445 0%,
+            #9A7374 25%,
+            #C9A8A8 60%,
             #ffffff 100%);
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 0;
     /* jedna hodnota řídí VŠECHNY mezery mezi kartami i daty */
 
     position: relative;
@@ -155,9 +155,9 @@ body {
     width: 2px;
     background: linear-gradient(180deg,
             #ffffff 0%,
-            #fffaf0 25%,
-            #f5ccec 60%,
-            #E38F8F 100%);
+            #C9A8A8 25%,
+            #9A7374 60%,
+            #6B4445 100%);
     transform: translateX(-50%);
     z-index: -1;
     /* schová se za fotky/text, vidět je jen v mezerách mezi kartami */
@@ -173,6 +173,8 @@ body {
     text-align: center;
     color: #333131;
     letter-spacing: 3px;
+    margin: 0 0 60px 0;
+    /* stejná hodnota jako margin-bottom u .memory-wrap */
 }
 
 .memory {
@@ -199,6 +201,7 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 60px;
 }
 
 .memory-wrap::before {
@@ -210,7 +213,7 @@ body {
     height: 16px;
     border-radius: 50%;
     background: #ffffff;
-    border: 3px solid #E38F8F;
+    border: 3px solid #6B4445;
     transform: translate(-50%, -50%);
     z-index: 1;
     pointer-events: none;
@@ -336,7 +339,7 @@ body {
 }
 
 .upload-btn {
-    background-color: #c98f55;
+    background-color: #6B4445;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -405,5 +408,5 @@ body {
 }
 
 .message {
-    border-left: 4px solid #c98f55;
+    border-left: 4px solid #6B4445;
 }

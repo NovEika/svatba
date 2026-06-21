@@ -62,8 +62,92 @@ function createHeart() {
     }, duration * 1000);
 }
 
+//barevné stopy gradientu pozadí .story, musí odpovídat CSS:
+//background: linear-gradient(180deg, #6B4445 0%, #9A7374 25%, #C9A8A8 60%, #ffffff 100%)
+const gradientStops = [
+    { pos: 0, r: 107, g: 68, b: 69 },      // #6B4445
+    { pos: 0.25, r: 154, g: 115, b: 116 }, // #9A7374
+    { pos: 0.60, r: 201, g: 168, b: 168 }, // #C9A8A8
+    { pos: 1, r: 255, g: 255, b: 255 }     // #ffffff
+];
+
+function colorAtBackground(progress) {
+    //najde mezi kterými dvěma stopy progress leží a interpoluje barvu POZADÍ na tom místě
+    for (let i = 0; i < gradientStops.length - 1; i++) {
+        const a = gradientStops[i];
+        const b = gradientStops[i + 1];
+        if (progress >= a.pos && progress <= b.pos) {
+            const localT = (progress - a.pos) / (b.pos - a.pos);
+            return {
+                r: a.r + (b.r - a.r) * localT,
+                g: a.g + (b.g - a.g) * localT,
+                b: a.b + (b.b - a.b) * localT
+            };
+        }
+    }
+    return gradientStops[gradientStops.length - 1];
+}
+
+//vybere pro daný element kontrastní barvu (bílá/tmavá) podle pozice na gradientu .story
+function setContrastColor(el, storyHeight) {
+    const elTop = el.offsetTop;
+    let progress = elTop / storyHeight;
+    progress = Math.min(Math.max(progress, 0), 1);
+
+    const bg = colorAtBackground(progress);
+
+    //vypočítá vnímaný jas pozadí (luma) a podle toho zvolí bílý nebo tmavý text
+    const luma = 0.299 * bg.r + 0.587 * bg.g + 0.114 * bg.b;
+
+    el.style.color = luma > 150 ? "#6B4445" : "#ffffff";
+}
+
+function updateHeadingColors() {
+    //kontroluje barvu pozadí a podle toho vybírá kontrastní barvu pro texty v timeline
+    //(h2 data, h3/h4/p uvnitř memory-text) – text musí být VŽDY čitelný
+    const story = document.querySelector(".story");
+    const storyHeight = story.offsetHeight;
+
+    //offsetTop se počítá vůči nejbližšímu positioned předkovi.
+    //u h2.story-date je to přímo .story, ale u h3/h4/p uvnitř .memory-text
+    //je potřeba k jejich offsetTop přičíst offsetTop jejich .memory-wrap předka,
+    //protože .memory má position: relative a stává se novým "kotvícím" prvkem.
+    const headings = story.querySelectorAll("h2");
+    headings.forEach(h2 => setContrastColor(h2, storyHeight));
+
+    const wraps = story.querySelectorAll(".memory-wrap");
+    wraps.forEach(wrap => {
+        const wrapTop = wrap.offsetTop;
+        const textEls = wrap.querySelectorAll(".memory-text h3, .memory-text h4, .memory-text p");
+
+        textEls.forEach(el => {
+            //el.offsetTop je relativní k .memory (nejbližší positioned předek),
+            //proto k němu přičteme wrapTop, abychom dostali pozici vůči .story
+            const elTop = wrapTop + el.offsetTop;
+            let progress = elTop / storyHeight;
+            progress = Math.min(Math.max(progress, 0), 1);
+
+            const bg = colorAtBackground(progress);
+            const luma = 0.299 * bg.r + 0.587 * bg.g + 0.114 * bg.b;
+
+            el.style.color = luma > 150 ? "#6B4445" : "#ffffff";
+        });
+    });
+}
+
+window.addEventListener('load', () => {
+    updateHeadingColors();
+    setTimeout(updateHeadingColors, 500);
+});
+window.addEventListener('resize', updateHeadingColors);
+
 function toggleMemory(memory) {
+    //přepíná mezi aktivní a neaktivní vzpomínkou, aktivní odsouvá fotku a zobrazuje text, neaktivní zůstává uprostřed stránky
     memory.classList.toggle("active");
+
+    //po otevření/zavření karty se může změnit výška .story (text se zobrazí/skryje),
+    //takže přepočítáme barvy po doběhnutí CSS transition (0.6s)
+    setTimeout(updateHeadingColors, 650);
 }
 
 const supabaseUrl = "https://gadvmgbzfliexigiljke.supabase.co";
@@ -107,7 +191,7 @@ async function loadMessages() {
         const div = document.createElement("div");
         div.classList.add("message");
 
-        div.innerHTML = `<strong>${m.name}</strong> <p>${m.message}</p>`;
+        div.innerHTML = `<strong>${m.name}</strong><p>${m.message}</p>`;
 
         container.appendChild(div);
     });
