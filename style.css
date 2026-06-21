@@ -3,6 +3,8 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* ===== HERO ===== */
+
 .hero {
     height: 100vh;
     background-image: url("Fotky/hero.jpeg");
@@ -38,6 +40,8 @@ body {
     font-size: 24px;
 }
 
+/* ===== HUDEBNÍ TLAČÍTKO ===== */
+
 .music-btn {
     position: absolute;
     bottom: 30px;
@@ -54,7 +58,6 @@ body {
     align-items: center;
     justify-content: center;
 
-    position: absolute;
     overflow: hidden;
 }
 
@@ -92,8 +95,6 @@ body {
     opacity: 0.9;
 }
 
-
-
 @keyframes floatV {
     0% {
         transform: translate(0, 0) scale(1);
@@ -118,84 +119,194 @@ body {
     }
 }
 
+/* ===== STORY / TIMELINE ===== */
+
 .story {
     font-size: 18px;
-    padding: 100px 20px;
-    background: peachpuff;
+    padding: 60px 20px;
+    background: linear-gradient(180deg, #c98f55 0%, #f3dfb8 35%, #fff7e5 100%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    /* jedna hodnota řídí VŠECHNY mezery mezi kartami i daty */
+
+    position: relative;
+    z-index: 0;
+    /* vytváří vlastní stacking context pro tu čáru níž */
+}
+
+.story::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: rgba(154, 102, 50, 0.45);
+    transform: translateX(-50%);
+    z-index: -1;
+    /* schová se za fotky/text, vidět je jen v mezerách mezi kartami */
+    pointer-events: none;
 }
 
 .story h2 {
     font-size: 38px;
+    backdrop-filter: blur(10px) saturate(100%);
 }
 
 .story-date {
     text-align: center;
-    margin-bottom: 70px;
     color: #333131;
     letter-spacing: 3px;
 }
 
 .memory {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 60px;
+
+    gap: 0;
+    padding: 0;
 
     cursor: pointer;
+    flex-wrap: nowrap;
+
+    transition: gap 0.6s ease;
+
+    position: relative;
 }
 
+.memory-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.memory-wrap::before {
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #c98f55;
+    border: 3px solid #fff7e5;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.memory.active {
+    gap: 60px;
+    justify-content: center;
+}
+
+.memory.left {
+    flex-direction: row;
+}
+
+.memory.right {
+    flex-direction: row-reverse;
+}
+
+/* ===== FOTKA ===== */
+
 .memory-photo {
-    transition: 0.6s ease;
+    transition: transform 0.6s ease;
 }
 
 .memory-photo img {
-    width: 750px;
+    width: 700px;
     max-width: 90vw;
-
     border-radius: 15px;
     display: block;
-
-    transition: all 0.6s ease;
-}
-
-.memory.active .memory-photo {
-    transform: translateX(-80px);
+    transition: width 0.6s ease, transform 0.6s ease;
 }
 
 .memory.active .memory-photo img {
-    width: 350px;
+    width: 380px;
+    /* pevná velikost po kliknutí, žádný scale() */
 }
 
+.memory.left.active .memory-photo {
+    transform: translateX(-80px);
+}
+
+.memory.right.active .memory-photo {
+    transform: translateX(80px);
+}
+
+/* ===== TEXT ===== */
+
 .memory-text {
-    max-width: 400px;
+    width: 0;
+    max-width: 420px;
 
     opacity: 0;
+    overflow: hidden;
     transform: translateX(30px);
 
     transition: all 0.6s ease;
+    pointer-events: none;
+}
 
-    width: 0;
-    overflow: hidden;
+.memory.active .memory-text {
+    width: 420px;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    padding: 20px;
+}
+
+.memory-text h4 {
+    font-size: 18px;
+    margin: 0 0 6px;
 }
 
 .memory-text h3 {
     font-size: 36px;
+    margin: 0 0 14px;
 }
 
 .memory-text p {
     font-size: 24px;
+    line-height: 1.4;
+    margin: 0;
 }
 
-.memory.active {
-    justify-content: center;
-}
+/* ===== MOBIL – fotka nahoře, text pod ní ===== */
 
-.memory.active .memory-text {
-    opacity: 1;
-    transform: translateX(0);
+@media (max-width: 700px) {
+    .memory {
+        flex-direction: column !important;
+        gap: 24px !important;
+    }
 
-    width: 400px;
+    .memory-photo img {
+        width: 90vw;
+        max-width: 90vw;
+    }
+
+    .memory.active .memory-photo img {
+        width: 90vw;
+        /* na mobilu se fotka při kliknutí nezmenšuje */
+    }
+
+    .memory.left.active .memory-photo,
+    .memory.right.active .memory-photo {
+        transform: none;
+        /* slide do strany nemá smysl, když je vše pod sebou */
+    }
+
+    .memory-text {
+        width: 90vw !important;
+        max-width: 90vw !important;
+    }
 }
