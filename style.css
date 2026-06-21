@@ -130,8 +130,8 @@ body {
     font-size: 18px;
     padding: 60px 20px;
     background: linear-gradient(180deg,
-            #dab998 0%,
-            #d8b99c 25%,
+            #E38F8F 0%,
+            #f5ccec 25%,
             #fffaf0 60%,
             #ffffff 100%);
 
@@ -156,8 +156,8 @@ body {
     background: linear-gradient(180deg,
             #ffffff 0%,
             #fffaf0 25%,
-            #d8b99c 60%,
-            #dab998 100%);
+            #f5ccec 60%,
+            #E38F8F 100%);
     transform: translateX(-50%);
     z-index: -1;
     /* schová se za fotky/text, vidět je jen v mezerách mezi kartami */
@@ -210,7 +210,7 @@ body {
     height: 16px;
     border-radius: 50%;
     background: #ffffff;
-    border: 3px solid #dab998;
+    border: 3px solid #E38F8F;
     transform: translate(-50%, -50%);
     z-index: 1;
     pointer-events: none;
