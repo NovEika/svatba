@@ -42,15 +42,11 @@ function createHeart() {
     heart.style.left = startX + "px";
     heart.style.top = startY + "px";
 
-    //přidání pohybu srdíček "do V", ne jen nahoru
+    //přidání pohybu srdíček "do V"
     const xMove = (Math.random() * 160 - 80);
     const yMove = -(Math.random() * 220 + 150);
 
     heart.style.fontSize = (Math.random() * 10 + 14) + "px";
-
-    //přidání pohybu srdíček "do V", ne jen nahoru
-    //const xMove = (Math.random() * 120 - 60);
-    //const yMove = -(Math.random() * 200 + 150);
 
     const duration = Math.random() * 1.5 + 1.5;
 
@@ -66,3 +62,6 @@ function createHeart() {
     }, duration * 1000);
 }
 
+function toggleMemory(memory) {
+    memory.classList.toggle("active");
+}
