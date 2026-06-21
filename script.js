@@ -65,3 +65,46 @@ function createHeart() {
 function toggleMemory(memory) {
     memory.classList.toggle("active");
 }
+
+const supabaseUrl = "https://gadvmgbzfliexigiljke.supabase.co";
+const supabaseKey = "sb_publishable_x4nWnzyOAWhbPAlrCIuM5g_JBMdf6yx";
+
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+//ODESLÁNÍ
+async function sendMessage() {
+    const name = document.getElementById("name").value;
+    const message = document.getElementById("message").value;
+
+    if (!name || !message) return;
+
+    await supabase
+        .from("messages")
+        .insert([{ name, message }]);
+
+    document.getElementById("message").value = "";
+
+    loadMessages();
+}
+
+//NAHRÁNÍ
+async function loadMessages() {
+    const { data } = await supabase
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    const container = document.getElementById("messages");
+    container.innerHTML = "";
+
+    data.forEach(m => {
+        const div = document.createElement("div");
+        div.classList.add("message");
+
+        div.innerHTML = `<strong>${m.name}</strong> <p>${m.message}</p>`;
+
+        container.appendChild(div);
+    });
+}
+
+loadMessages();

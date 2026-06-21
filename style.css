@@ -129,7 +129,11 @@ body {
 .story {
     font-size: 18px;
     padding: 60px 20px;
-    background: linear-gradient(180deg, #c98f55 0%, #f3dfb8 35%, #fff7e5 100%);
+    background: linear-gradient(180deg,
+            #c98f55 0%,
+            #f3dfb8 25%,
+            #fffaf0 60%,
+            #ffffff 100%);
 
     display: flex;
     flex-direction: column;
@@ -337,5 +341,24 @@ body {
     display: inline-block;
     font-size: 16px;
     margin: 8px 4px;
+    cursor: pointer;
+}
+
+.guestbook {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.guestbook input,
+.guestbook textarea {
+    width: 100%;
+    max-width: 500px;
+    margin: 10px auto;
+    display: block;
+    padding: 10px;
+}
+
+.guestbook button {
+    padding: 10px 20px;
     cursor: pointer;
 }
