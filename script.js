@@ -69,7 +69,12 @@ function toggleMemory(memory) {
 const supabaseUrl = "https://gadvmgbzfliexigiljke.supabase.co";
 const supabaseKey = "sb_publishable_x4nWnzyOAWhbPAlrCIuM5g_JBMdf6yx";
 
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+let supabaseClient;
+
+document.addEventListener("DOMContentLoaded", () => {
+    supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+    loadMessages();
+});
 
 //ODESLÁNÍ
 async function sendMessage() {
@@ -78,7 +83,7 @@ async function sendMessage() {
 
     if (!name || !message) return;
 
-    await supabase
+    await supabaseClient
         .from("messages")
         .insert([{ name, message }]);
 
@@ -89,7 +94,8 @@ async function sendMessage() {
 
 //NAHRÁNÍ
 async function loadMessages() {
-    const { data } = await supabase
+    console.log("Loading messages")
+    const { data } = await supabaseClient
         .from("messages")
         .select("*")
         .order("created_at", { ascending: false });
@@ -106,5 +112,3 @@ async function loadMessages() {
         container.appendChild(div);
     });
 }
-
-loadMessages();
