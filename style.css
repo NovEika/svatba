@@ -366,3 +366,44 @@ body {
     padding: 10px 20px;
     cursor: pointer;
 }
+
+#messages {
+    max-width: 700px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px 20px;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.message:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.message strong {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.message p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #555;
+}
+
+.message {
+    border-left: 4px solid #c98f55;
+}
