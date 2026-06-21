@@ -3,8 +3,349 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Svatba</title>
-    <link rel="stylesheet" href="style.css">
+    <title>
+        <!DOCTYPE html>
+        <html lang="cs">
+
+        <head>
+            <meta charset="UTF-8">
+            <title>Kristý & Jirka</title>
+            <link rel="stylesheet" href="style.css">
+        </head>
+
+<body>
+    <div class="hero">
+        <div class="overlay"></div>
+
+        <div class="hero-content">
+            <h1>Kristý & Jirka</h1>
+            <p>26.06.2026</p>
+        </div>
+    </div>
+
+    <audio id="song" src="Hudba/pojdsemnou.mp3"></audio>
+    <button class="music-btn" onclick="toggleMusic()">
+        <span class="icon music" id="musicIcon">♫</span>
+        <span class="icon heart">❤</span>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="script.js"></script>
+
+
+    <section class="story">
+        <!-- Time line navazující pod hero-->
+
+        <!--PRVNÍ FOTKA – PRVNÍ SETKÁNÍ-->
+        <h2 class="story-date">06/2023</h2>
+        <div class="memory-wrap">
+            <div class="memory left" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory1.jpeg" alt="Seznámení">
+                </div>
+
+                <div class="memory-text">
+                    <h4>03.06.2023</h4>
+                    <h3>První setkání</h3>
+
+                    <p>
+                        Hrůza. Jirka oslňuje urážkami, Kristý ne jen, že je zvládá, ale na první dobrou se zamilovává.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <!--DRUHÁ FOTKA-->
+        <div class="memory-wrap">
+            <div class="memory right" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory2.jpeg" alt="První pusa">
+                </div>
+
+                <div class="memory-text">
+                    <h4>06.06.2023</h4>
+                    <h3>První pusa</h3>
+
+                    <p>
+                        Zdroje tvrdí, že políbit ho byl jediný způsob, jak ho na chvíli umlčet. Jiné zdroje tvrdí, že
+                        první
+                        polibek inicioval on.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--TŘETÍ FOTKA – PRVNÍ ZVEŘEJNĚNÍ JIRKY-->
+        <div class="memory-wrap">
+            <div class="memory left" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory3.jpeg" alt="První ig post">
+                </div>
+
+                <div class="memory-text">
+                    <h4>12.06.2023</h4>
+                    <h3>První zveřejnění</h3>
+
+                    <p>
+                        Kristý poprvé nenápadně zveřejnila fotku se zajíčkem, teda Jirkou, i když ho schovala na druhý
+                        slide příspěvku.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--ČTVRTÁ FOTKA – PRVNÍ SPOLEČNÝ WELLNESS-->
+        <h2 class="story-date">07/2023</h2>
+
+        <div class="memory-wrap">
+            <div class="memory right" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory4.jpeg" alt="První wellness">
+                </div>
+
+                <div class="memory-text">
+                    <h4>02.07.2023</h4>
+                    <h3>První wellness</h3>
+
+                    <p>
+                        Jirka daroval Kristý k narozeninám první společný wellness.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--PÁTÁ FOTKA – SESTĚHOVÁNÍ-->
+        <div class="memory-wrap">
+            <div class="memory left" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory5.jpeg" alt="Společné bydlení">
+                </div>
+
+                <div class="memory-text">
+                    <h4>14.07.2023</h4>
+                    <h3>Společné bydlení</h3>
+
+                    <p>
+                        Po více jak měsíci bylo jasné, že tihle dva k sobě patří.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--ŠESTÁ FOTKA – ARNIE-->
+        <div class="memory-wrap">
+            <div class="memory right" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory6.jpeg" alt="Arnie">
+                </div>
+
+                <div class="memory-text">
+                    <h4>17.07.2023</h4>
+                    <h3>Arnie</h3>
+
+                    <p>
+                        Pár dní po sestěhování si k Jirkovi a Kristý prokousalo cestu první společné miminko – Arnie.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--SEDMÁ FOTKA – PRVNÍ DOVOLENÁ-->
+        <div class="memory-wrap">
+            <div class="memory left" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory7.jpeg" alt="První dovolená">
+                </div>
+
+                <div class="memory-text">
+                    <h4>28.07.2023</h4>
+                    <h3>První dovolená</h3>
+
+                    <p>
+                        Bylo třeba nově vzniklou rodinu vyvézt na dovolenou do Pasohlávek.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--OSMÁ FOTKA – DRUHÁ DOVOLENÁ-->
+        <h2 class="story-date">08/2023</h2>
+
+        <div class="memory-wrap">
+            <div class="memory right" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory8.jpeg" alt="První dovolená">
+                </div>
+
+                <div class="memory-text">
+                    <h4>12.08.2023</h4>
+                    <h3>Druhá dovolená</h3>
+
+                    <p>
+                        Jakoby tušili, že už za rok jim dovolenkování na nějakou chvíli skončí, zvládli hned další
+                        dovolenou v Krumlově a Hluboké.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--DEVÁTÁ FOTKA – TŘETÍ DOVOLENÁ-->
+        <h2 class="story-date">09/2023</h2>
+        <div class="memory-wrap">
+            <div class="memory left" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory9.jpeg" alt="Třetí dovolená">
+                </div>
+
+                <div class="memory-text">
+                    <h4>27.09.2023</h4>
+                    <h3>Třetí dovolená</h3>
+
+                    <p>
+                        Poslední dovolená jen s jedním miminkem <3. </p>
+                </div>
+            </div>
+        </div>
+
+        <!--DESÁTÁ FOTKA – TĚHOTENSTVÍ-->
+        <h2 class="story-date">01/2024</h2>
+        <div class="memory-wrap">
+            <div class="memory right" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory10.jpeg" alt="Těhotenství">
+                </div>
+
+                <div class="memory-text">
+                    <h3>Těhotenství</h3>
+
+                    <p>
+                        V lednu Kristý s Jirkou zjistili, že jim rok 2024 nadělí další, tentokrát lidské, miminko.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--JEDENÁCTÁ FOTKA – VIOLKA-->
+        <h2 class="story-date">06/2024</h2>
+        <div class="memory-wrap">
+            <div class="memory left" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memorynevim.jpeg" alt="Seznámení s rodinou">
+                </div>
+
+                <div class="memory-text">
+                    <h4>29.06.2024</h4>
+                    <h3>Seznámení s rodinou a oznámení těhotenství</h3>
+
+                    <p>
+                        Sice to vypadál, že má Jirka Kristýnku doslova u prdele, ale i tak ji i břicho představil zbytku
+                        rodiny.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <!--JEDENÁCTÁ FOTKA – VIOLKA-->
+        <h2 class="story-date">09/2024</h2>
+        <div class="memory-wrap">
+            <div class="memory right" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory11.jpeg" alt="Violka">
+                </div>
+
+                <div class="memory-text">
+                    <h4>11.09.2024 16:11</h4>
+                    <h3>Violka</h3>
+
+                    <p>
+                        V září pak přivítali svou supermanku, Violku.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--DVANÁCTÁ FOTKA – ZÁSNUBY-->
+        <h2 class="story-date">12/2025</h2>
+        <div class="memory-wrap">
+            <div class="memory left" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory12.jpeg" alt="Zásnuby">
+                </div>
+
+                <div class="memory-text">
+                    <h4>24.12.2025</h4>
+                    <h3>Zásnuby</h3>
+
+                    <p>
+                        ŘEKLA ANO!!! (Poznámka autora – moc originální dárek k Vánocům, brácha)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--TŘINÁCTÁ FOTKA – SVATBA-->
+        <h2 class="story-date">06/2026</h2>
+        <div class="memory-wrap">
+            <div class="memory right" onclick="toggleMemory(this)">
+
+                <div class="memory-photo">
+                    <img src="Fotky/memory13.jpeg" alt="Svatba">
+                </div>
+
+                <div class="memory-text">
+                    <h4>26.06.2026</h4>
+                    <h3>Svatba</h3>
+
+                    <p>
+                        Máš fotky ze svatby, o které se chceš podělit? Prosím nahraj je přes odkaz níže, vybrané budou
+                        přidány sem. Děkuji!
+                    </p>
+                    <a href="https://photos.app.goo.gl/YDtvcW5Ee4dTsm957" target="_blank" class="upload-btn">
+                        Nahrát fotky
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="guestbook">
+
+        <h2>💌 Vzkazy od hostů</h2>
+
+        <p>Chceš novomanželům něco vzkázat? Využij formulář níže!</p>
+
+        <input id="name" placeholder="Jméno">
+        <textarea id="message" placeholder="Vzkaz"></textarea>
+
+        <button onclick="sendMessage()">Odeslat</button>
+
+        <div id="messages"></div>
+
+    </section>
+
+
+
+</body>
+
+</html>
+</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
