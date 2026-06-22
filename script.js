@@ -196,3 +196,17 @@ async function loadMessages() {
         container.appendChild(div);
     });
 }
+
+//NAVIGACE PŘI SCROLLU
+const mainNav = document.getElementById("main-nav");
+
+function updateNavVisibility() {
+    if (window.scrollY > 50) {
+        mainNav.classList.add("visible");
+    } else {
+        mainNav.classList.remove("visible");
+    }
+}
+
+window.addEventListener("scroll", updateNavVisibility);
+window.addEventListener("load", updateNavVisibility);
