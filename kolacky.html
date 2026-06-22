@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Koláčky</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -192,6 +193,17 @@
 
         </div>
     </section>
+
+    <div class="footer-bottom">
+        <span>&copy; <span id="year"></span> Eva Novotná. Všechna práva vyhrazena.</span>
+        <span><a href="#" id="privacy-link">Ochrana osobních údajů</a></span>
+    </div>
+
+    <audio id="privacy-audio" src="Hudba/evajenej.mp3" preload="none"></audio>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 
 
 </body>

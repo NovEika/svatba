@@ -253,3 +253,12 @@ if (unitSwitch) {
         updateNutriValues(newUnit);
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('privacy-link').addEventListener('click', function (e) {
+        e.preventDefault();
+        var audio = document.getElementById('privacy-audio');
+        audio.currentTime = 0;
+        audio.play();
+    });
+});

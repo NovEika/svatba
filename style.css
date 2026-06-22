@@ -602,3 +602,23 @@ body {
 .unit-switch[aria-checked="true"] .unit-switch-knob {
     transform: translateX(26px);
 }
+
+.footer-bottom {
+    color: #ffffff;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+
+    padding: 18px 20px;
+    background: rgba(107, 68, 69, 0.92);
+    backdrop-filter: blur(8px);
+}
+
+.footer-bottom text {
+    color: #ffffff;
+}
