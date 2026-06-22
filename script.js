@@ -197,11 +197,12 @@ async function loadMessages() {
     });
 }
 
-//NAVIGACE PŘI SCROLLU
+//NAVIGACE PŘI SCROLLU + pohyb myši nahoře
 const mainNav = document.getElementById("main-nav");
+let mouseNearTop = false;
 
 function updateNavVisibility() {
-    if (window.scrollY > 50) {
+    if (window.scrollY > 50 || mouseNearTop) {
         mainNav.classList.add("visible");
     } else {
         mainNav.classList.remove("visible");
@@ -210,3 +211,8 @@ function updateNavVisibility() {
 
 window.addEventListener("scroll", updateNavVisibility);
 window.addEventListener("load", updateNavVisibility);
+
+window.addEventListener("mousemove", (e) => {
+    mouseNearTop = e.clientY < 80;
+    updateNavVisibility();
+});
