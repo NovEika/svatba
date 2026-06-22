@@ -456,3 +456,104 @@ body {
         font-size: 14px;
     }
 }
+
+/* ===== KOLÁČKY ===== */
+
+.kolacky {
+    min-height: 100vh;
+    padding: 100px 20px 80px;
+    text-align: center;
+    background: linear-gradient(180deg, #6B4445 0%, #9A7374 25%, #C9A8A8 60%, #ffffff 100%);
+}
+
+.kolacky h1 {
+    color: #ffffff;
+    font-size: 44px;
+    margin: 0 0 8px;
+}
+
+.kolacky-intro {
+    color: #ffffff;
+    font-size: 16px;
+    letter-spacing: 2px;
+    opacity: 0.85;
+    margin: 0 0 50px;
+}
+
+.kolacky-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.kolacek-card {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.kolacek-card h2 {
+    color: #6B4445;
+    font-size: 26px;
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+.nutri-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.nutri-table tr {
+    border-bottom: 1px solid #e3d3d3;
+}
+
+.nutri-table tr:last-child {
+    border-bottom: none;
+}
+
+.nutri-table th,
+.nutri-table td {
+    padding: 8px 4px;
+    text-align: left;
+    font-weight: normal;
+    color: #333131;
+}
+
+.nutri-table th {
+    width: 70%;
+}
+
+.nutri-table td {
+    text-align: right;
+    font-weight: bold;
+    color: #6B4445;
+}
+
+.nutri-table tr.nutri-sub th,
+.nutri-table tr.nutri-sub td {
+    padding-left: 16px;
+    font-size: 13px;
+    color: #6b6464;
+    font-weight: normal;
+}
+
+@media (max-width: 700px) {
+    .kolacky-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kolacky-page h1 {
+        font-size: 34px;
+    }
+}
+
+.main-nav.nav-static {
+    transform: translateY(0) !important;
+}
