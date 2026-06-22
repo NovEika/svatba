@@ -198,6 +198,28 @@ async function loadMessages() {
 }
 
 //NAVIGACE PŘI SCROLLU + pohyb myši nahoře
+const mainNav = document.getElementById("main-nav");
+let mouseNearTop = false;
+
+
+function updateNavVisibility() {
+    if (window.scrollY > 50 || mouseNearTop) {
+        mainNav.classList.add("visible");
+    } else {
+        mainNav.classList.remove("visible");
+    };
+}
+
+window.addEventListener("scroll", updateNavVisibility);
+window.addEventListener("load", updateNavVisibility);
+
+window.addEventListener("mousemove", (e) => {
+    mouseNearTop = e.clientY < 80;
+    updateNavVisibility();
+});
+
+
+
 const unitSwitch = document.getElementById('unitSwitch');
 
 function formatNumber(n) {
