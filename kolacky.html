@@ -18,45 +18,53 @@
 
     <section class="kolacky" id="kolacky">
         <h1>Koláčky</h1>
-        <p class="kolacky-intro">Výživové hodnoty na 100 g</p>
+
+        <div class="unit-toggle">
+            <span class="unit-label">100 g</span>
+            <button class="unit-switch" id="unitSwitch" data-unit="100g" role="switch" aria-checked="false">
+                <span class="unit-switch-knob"></span>
+            </button>
+            <span class="unit-label">1 ks</span>
+        </div>
 
         <div class="kolacky-grid">
 
             <div class="kolacek-card">
                 <h2>Tvarohový</h2>
-                <table class="nutri-table">
+                <table class="nutri-table" data-weight="xx">
                     <tbody>
                         <tr>
                             <th>Energetická hodnota</th>
-                            <td>xxx kcal / xxxx kJ</td>
+                            <span class="nutri-value" data-value100="xxx"></span> kcal /
+                            <span class="nutri-value" data-value100="xxxx"></span> kJ
                         </tr>
                         <tr>
                             <th>Tuky</th>
-                            <td>xx g</td>
+                            <td><span class="nutri-value" data-value100="xx"> g</td>
                         </tr>
                         <tr class="nutri-sub">
                             <th>z toho nasycené mastné kyseliny</th>
-                            <td>x g</td>
+                            <td><span class="nutri-value" data-value100="xx"> g</td>
                         </tr>
                         <tr>
                             <th>Sacharidy</th>
-                            <td>xx g</td>
+                            <td><span class="nutri-value" data-value100="xx"> g</td>
                         </tr>
                         <tr class="nutri-sub">
                             <th>z toho cukry</th>
-                            <td>xx g</td>
+                            <td><span class="nutri-value" data-value100="xx"> g</span></td>
                         </tr>
                         <tr>
                             <th>Vláknina</th>
-                            <td>x g</td>
+                            <td><span class="nutri-value" data-value100="xx"> g</span></td>
                         </tr>
                         <tr>
                             <th>Bílkoviny</th>
-                            <td>x g</td>
+                            <td><span class="nutri-value" data-value100="xx"> g</span></td>
                         </tr>
                         <tr>
                             <th>Sůl</th>
-                            <td>0.x g</td>
+                            <td><span class="nutri-value" data-value100="xx"> g</span></td>
                         </tr>
                     </tbody>
                 </table>

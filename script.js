@@ -198,21 +198,36 @@ async function loadMessages() {
 }
 
 //NAVIGACE PŘI SCROLLU + pohyb myši nahoře
-const mainNav = document.getElementById("main-nav");
-let mouseNearTop = false;
+const unitSwitch = document.getElementById('unitSwitch');
 
-function updateNavVisibility() {
-    if (window.scrollY > 50 || mouseNearTop) {
-        mainNav.classList.add("visible");
-    } else {
-        mainNav.classList.remove("visible");
-    }
+function formatNumber(n) {
+    const rounded = Math.round(n * 10) / 10;
+    return rounded.toString().replace('.', ',');
 }
 
-window.addEventListener("scroll", updateNavVisibility);
-window.addEventListener("load", updateNavVisibility);
+function updateNutriValues(unit) {
+    document.querySelectorAll('.nutri-table').forEach(table => {
+        const weight = parseFloat(table.dataset.weight);
 
-window.addEventListener("mousemove", (e) => {
-    mouseNearTop = e.clientY < 80;
-    updateNavVisibility();
-});
+        table.querySelectorAll('.nutri-value').forEach(span => {
+            const value100 = parseFloat(span.dataset.value100);
+
+            if (unit === '100g' || isNaN(weight)) {
+                span.textContent = formatNumber(value100);
+            } else {
+                const valuePerPiece = value100 * (weight / 100);
+                span.textContent = formatNumber(valuePerPiece);
+            }
+        });
+    });
+}
+
+if (unitSwitch) {
+    unitSwitch.addEventListener('click', () => {
+        const isKs = unitSwitch.getAttribute('aria-checked') === 'true';
+        const newUnit = isKs ? '100g' : 'ks';
+
+        unitSwitch.setAttribute('aria-checked', String(!isKs));
+        updateNutriValues(newUnit);
+    });
+}
