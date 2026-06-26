@@ -6,28 +6,29 @@
     <title>404 Not found</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<h1>This site can't be reached</h1>
-<p> ://localhost 127.0.0.1:5500 is unreachable.</p>
-
-<p>Budete přesměrováni za <span id="countdown">10</span> sekund...</p>
-
-<script>
-    let seconds = 10;
-    const countdownEl = document.getElementById('countdown');
-    const redirectUrl = "https://kristyajirka.cz/";
-
-    const interval = setInterval(() => {
-        seconds--;
-        countdownEl.textContent = seconds;
-
-        if (seconds <= 0) {
-            clearInterval(interval);
-            window.location.href = redirectUrl;
-        }
-    }, 1000);
-</script>
 
 <body>
+
+    <h1>This site can't be reached</h1>
+    <p>://localhost 127.0.0.1:5500 is unreachable.</p>
+
+    <p>Budete přesměrováni za <span id="countdown">10</span> sekund...</p>
+
+    <script>
+        let seconds = 10;
+        const countdownEl = document.getElementById('countdown');
+        const redirectUrl = "ketchupCapcha.html";
+
+        const interval = setInterval(() => {
+            seconds--;
+            countdownEl.textContent = seconds;
+
+            if (seconds <= 0) {
+                clearInterval(interval);
+                window.location.href = redirectUrl;
+            }
+        }, 1000);
+    </script>
 
 </body>
 

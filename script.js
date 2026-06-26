@@ -219,7 +219,6 @@ window.addEventListener("mousemove", (e) => {
 });
 
 
-
 const unitSwitch = document.getElementById('unitSwitch');
 
 function formatNumber(n) {
@@ -243,6 +242,9 @@ function updateNutriValues(unit) {
         });
     });
 }
+
+// Vyplnění hodnot hned po načtení stránky (výchozí jednotka 100 g)
+updateNutriValues('100g');
 
 if (unitSwitch) {
     unitSwitch.addEventListener('click', () => {

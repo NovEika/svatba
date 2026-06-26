@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kečup capcha</title>
+    <style>
+        :root {
+            --cream: #f7f3ea;
+            --fridge: #e8ecef;
+            --fridge-edge: #c9d1d6;
+            --ink: #2b2b28;
+            --ketchup: #c0392b;
+            --ketchup-dark: #8e2a20;
+            --mustard: #d9a531;
+            --mint: #4f7a68;
+            --shadow: rgba(43, 43, 40, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--cream);
+            font-family: "Georgia", "Iowan Old Style", serif;
+            color: var(--ink);
+            padding: 24px;
+        }
+
+        .capcha-card {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border: 1px solid var(--fridge-edge);
+            border-radius: 18px;
+            padding: 28px 26px 24px;
+            box-shadow: 0 18px 40px var(--shadow);
+        }
+
+        .capcha-eyebrow {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--mint);
+            margin: 0 0 4px;
+        }
+
+        .capcha-title {
+            font-size: 22px;
+            margin: 0 0 6px;
+            line-height: 1.3;
+        }
+
+        .capcha-sub {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 14px;
+            color: #5a5a55;
+            margin: 0 0 20px;
+            line-height: 1.5;
+        }
+
+        .fridge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background: var(--fridge);
+            border: 6px solid var(--fridge-edge);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .fridge-tile {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: none;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            padding: 0;
+        }
+
+        .fridge-tile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px var(--shadow);
+        }
+
+        .fridge-tile:focus-visible {
+            outline: 3px solid var(--mint);
+            outline-offset: 2px;
+        }
+
+        .fridge-tile svg {
+            width: 62%;
+            height: 62%;
+        }
+
+        .fridge-tile.is-wrong {
+            animation: shake 0.35s ease;
+        }
+
+        .fridge-tile.is-found {
+            box-shadow: 0 0 0 3px var(--ketchup) inset;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-4px);
+            }
+
+            75% {
+                transform: translateX(4px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .fridge-tile,
+            .fridge-tile.is-wrong {
+                animation: none;
+                transition: none;
+            }
+        }
+
+        .capcha-status {
+            margin-top: 16px;
+            min-height: 20px;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 13px;
+            color: #5a5a55;
+            text-align: center;
+        }
+
+        .capcha-status.success {
+            color: var(--mint);
+            font-weight: 600;
+        }
+
+        .capcha-footer {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .capcha-reset {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 12px;
+            color: #8a8a84;
+            background: none;
+            border: none;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .capcha-success-banner {
+            display: none;
+            margin-top: 14px;
+            background: #f0f6f2;
+            border: 1px solid var(--mint);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 13px;
+            text-align: center;
+            color: var(--ink);
+        }
+
+        .capcha-success-banner.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="capcha-card" id="capchaCard">
+        <p class="capcha-eyebrow">Ověření hosta</p>
+        <h1 class="capcha-title">Najdi v lednici kečup</h1>
+        <p class="capcha-sub">
+            Ženich na semafory nevěří, jen na to, co je v lednici.
+            Klikni na všechny lahve kečupu, ať dovnitř pustíme i tebe.
+        </p>
+
+        <div class="fridge-grid" id="fridgeGrid" role="group" aria-label="Obsah lednice"></div>
+
+        <p class="capcha-status" id="capchaStatus" aria-live="polite"></p>
+
+        <div class="capcha-success-banner" id="successBanner">
+            Schváleno. Kečup nalezen, pozvánka platí. 🍅<br>
+            <small>Přesměrováváme tě na svatební web…</small>
+        </div>
+
+        <div class="capcha-footer">
+            <button class="capcha-reset" id="resetBtn" type="button">Zamíchat lednici znovu</button>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const KETCHUP = "ketchup";
+
+            // Jednoduché SVG ikony - kečup a "rušivé" položky z lednice
+            const icons = {
+                ketchup: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26 6h12v6c3 1 5 3 5 6v34c0 4-3 7-7 7H28c-4 0-7-3-7-7V18c0-3 2-5 5-6V6z" fill="#c0392b"/>
+      <rect x="26" y="4" width="12" height="5" rx="1.5" fill="#8e2a20"/>
+      <rect x="22" y="30" width="20" height="14" rx="2" fill="#fff" opacity="0.92"/>
+      <text x="32" y="40" font-size="9" font-family="Helvetica, Arial, sans-serif" font-weight="700" fill="#c0392b" text-anchor="middle">cup</text>
+    </svg>`,
+                mustard: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="M27 6h10v5c3 1 5 3 5 6v35c0 4-3 7-7 7h-6c-4 0-7-3-7-7V17c0-3 2-5 5-6V6z" fill="#d9a531"/>
+      <rect x="27" y="4" width="10" height="5" rx="1.5" fill="#a8791f"/>
+    </svg>`,
+                milk: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22 10h20l3 8v36c0 3-2 5-5 5H24c-3 0-5-2-5-5V18l3-8z" fill="#f5f5f0" stroke="#cfcfc6" stroke-width="1.5"/>
+      <rect x="22" y="24" width="20" height="9" fill="#4f7a68" opacity="0.85"/>
+    </svg>`,
+                egg: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="32" cy="34" rx="14" ry="18" fill="#f6ecd9" stroke="#e2d3b4" stroke-width="1.5"/>
+    </svg>`,
+                cheese: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 40 L32 14 L56 40 Z" fill="#e8b93a"/>
+      <circle cx="26" cy="34" r="2.5" fill="#cf9d1f"/>
+      <circle cx="38" cy="36" r="2" fill="#cf9d1f"/>
+      <circle cx="32" cy="29" r="1.8" fill="#cf9d1f"/>
+    </svg>`,
+                pickle: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect x="22" y="10" width="20" height="42" rx="10" fill="#7a9b5c"/>
+      <circle cx="28" cy="22" r="1.6" fill="#5d7a44"/>
+      <circle cx="36" cy="30" r="1.6" fill="#5d7a44"/>
+      <circle cx="29" cy="40" r="1.6" fill="#5d7a44"/>
+    </svg>`,
+                butter: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect x="14" y="22" width="36" height="22" rx="3" fill="#f3d27a" stroke="#d8b75a" stroke-width="1.5"/>
+      <rect x="14" y="22" width="36" height="7" fill="#fff" opacity="0.5"/>
+    </svg>`,
+                mayo: `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 8h16v6c3 1 5 3 5 6v32c0 4-3 7-7 7H26c-4 0-7-3-7-7V20c0-3 2-5 5-6V8z" fill="#f4f1e6" stroke="#ddd6c0" stroke-width="1.5"/>
+    </svg>`
+            };
+
+            const decoys = ["mustard", "milk", "egg", "cheese", "pickle", "butter", "mayo"];
+            const GRID_SIZE = 9;
+
+            let answerKey = []; // true/false per tile index
+            let foundCorrect = new Set();
+
+            function buildBoard() {
+                const grid = document.getElementById("fridgeGrid");
+                grid.innerHTML = "";
+                answerKey = [];
+                foundCorrect = new Set();
+                document.getElementById("capchaStatus").textContent = "";
+                document.getElementById("capchaStatus").classList.remove("success");
+                document.getElementById("successBanner").classList.remove("show");
+
+                // 2-3 kečupy rozmístěné mezi tady náhodně
+                const ketchupCount = 2 + Math.floor(Math.random() * 2); // 2 nebo 3
+                const positions = Array.from({ length: GRID_SIZE }, (_, i) => i);
+                shuffle(positions);
+                const ketchupSpots = new Set(positions.slice(0, ketchupCount));
+
+                for (let i = 0; i < GRID_SIZE; i++) {
+                    const isKetchup = ketchupSpots.has(i);
+                    answerKey[i] = isKetchup;
+
+                    const tile = document.createElement("button");
+                    tile.type = "button";
+                    tile.className = "fridge-tile";
+                    tile.setAttribute("aria-label", isKetchup ? "Položka v lednici" : "Položka v lednici");
+                    tile.dataset.index = i;
+
+                    const iconKey = isKetchup ? KETCHUP : decoys[Math.floor(Math.random() * decoys.length)];
+                    tile.innerHTML = icons[iconKey];
+
+                    tile.addEventListener("click", () => handleTileClick(tile, i));
+                    grid.appendChild(tile);
+                }
+            }
+
+            function handleTileClick(tile, index) {
+                if (tile.classList.contains("is-found")) return;
+
+                if (answerKey[index]) {
+                    tile.classList.add("is-found");
+                    tile.disabled = true;
+                    foundCorrect.add(index);
+                    checkWin();
+                } else {
+                    tile.classList.add("is-wrong");
+                    setStatus("To je sice taky dobré, ale není to kečup.");
+                    setTimeout(() => tile.classList.remove("is-wrong"), 350);
+                }
+            }
+
+            function checkWin() {
+                const totalKetchups = answerKey.filter(Boolean).length;
+                if (foundCorrect.size === totalKetchups) {
+                    setStatus("Kečup nalezen ve všech regálech!", true);
+                    document.getElementById("successBanner").classList.add("show");
+                    document.querySelectorAll(".fridge-tile").forEach(t => t.disabled = true);
+                    setTimeout(() => {
+                        window.location.href = "index.html";
+                    }, 2200);
+                } else {
+                    const remaining = totalKetchups - foundCorrect.size;
+                    setStatus(remaining === 1 ? "Ještě jedna lahev kečupu se schovává." : `Ještě ${remaining} lahve kečupu se schovávají.`);
+                }
+            }
+
+            function setStatus(text, success) {
+                const el = document.getElementById("capchaStatus");
+                el.textContent = text;
+                el.classList.toggle("success", !!success);
+            }
+
+            function shuffle(arr) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+            }
+
+            document.getElementById("resetBtn").addEventListener("click", buildBoard);
+
+            buildBoard();
+        })();
+    </script>
+
+</body>
+
+</html>
